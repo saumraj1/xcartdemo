@@ -2,6 +2,7 @@ package shopping;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -17,8 +18,8 @@ public class ShoppingTest extends Utility {
         openBrowser(baseUrl);
     }
 
-  /*  @Test
-    public void verifyThatUserShouldPlaceOrderSuccessfullyForCupOfMojoBluetooth Speaker() throws InterruptedException {
+    @Test
+    public void verifyThatUserShouldPlaceOrderSuccessfullyForCupOfMojoBluetoothSpeaker() throws InterruptedException {
         mouseHover(By.xpath("//ul[@class='nav navbar-nav top-main-menu']//span[@class='primary-title'][normalize-space()='Hot deals']"));
         mouseHover(By.linkText("Sale"));
         clickOnElement(By.linkText("Sale"));
@@ -94,7 +95,32 @@ public class ShoppingTest extends Utility {
         mouseHover(By.xpath("//ul[@class='nav navbar-nav top-main-menu']//span[@class='primary-title'][normalize-space()='Hot deals']"));
         mouseHover(By.linkText("Bestsellers"));
         clickOnElement(By.linkText("Bastsellers"));
-        verifyTheText("Bastsellerd",By.xpath("//h1[contains(text(),'Bastsellers']"));
+        verifyTheText("Bestsellerd",By.xpath("//h1[contains(text(),'Bestsellers']"));
+        mouseHover(By.xpath("//span[contains(text(),'sort by:']"));
+        selectByVisibleTextFromDropDown(By.xpath("//span[@class='sort-by-label']"), "Name A - Z");
 
-    }*/
+        Thread.sleep(4000);
+        clickOnElement(By.xpath("//span[normalize-space()='Vinyl Idolz:Ghostbusters']"));
+        clickOnElement(By.xpath("//button[contains@type,'submit')]//span[contains(text(),'Add to cart']"));
+        verifyTheText("Product has been added to your cart",By.xpath("//div[@id='status-messages']//ul"));
+        clickOnElement(By.xpath("//a[@title='Close']"));
+
+        Thread.sleep(4000);
+        clickOnElement(By.xpath("//div[@title='Your cart']"));
+        clickOnElement(By.xpath("//div[@class='regular-button cart']"));
+        verifyTheText("Your shopping cart- 1 item",By.xpath("//h1[@id='page-title']"));
+
+        Thread.sleep(4000);
+        clickOnElement(By.xpath("//span[normalize-space()='Empty your cart']"));
+
+        Thread.sleep(4000);
+        Alert alert=driver.switchTo().alert();
+        System.out.println(alert.getText());
+        alert.accept();
+
+        Thread.sleep(4000);
+        verifyTheText("Item(s) deleted from your cart",By.xpath("//div[@id='status-messages']//ul"));
+        verifyTheText("Your cart is empty",By.xpath("//h1[@id='page-title']"));
+
+    }
 }
